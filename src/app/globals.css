@@ -1,26 +1,165 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --bg: #fafaff;
+  --bg-alt: #f1f0fc;
+  --surface: #ffffff;
+  --surface-tint: #f5f4ff;
+  --border: #e7e5f5;
+  --border-strong: #d8d5ee;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --fg: #15162b;
+  --fg-muted: #4e5069;
+  --fg-faint: #8c8ea4;
+
+  --primary: #4f46e5;
+  --primary-dark: #3f37c9;
+  --primary-deep: #1e1a4d;
+  --primary-soft: #eef0ff;
+  --on-primary: #ffffff;
+
+  --success: #059669;
+
+  --accent-indigo: #4f46e5;
+  --accent-indigo-soft: #eef0ff;
+  --accent-blue: #2563eb;
+  --accent-blue-soft: #e8f1ff;
+  --accent-violet: #7c3aed;
+  --accent-violet-soft: #f3edff;
+  --accent-rose: #e11d58;
+  --accent-rose-soft: #ffeaf1;
+  --accent-orange: #ea580c;
+  --accent-orange-soft: #fff1e7;
+  --accent-teal: #0d9488;
+  --accent-teal-soft: #e7faf5;
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.bg-grid {
+  background-image: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--border-strong) 70%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--border-strong) 70%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
+}
+
+/* Icon badges: vivid icon color on a pastel tint of the same hue */
+.badge-indigo {
+  background: var(--accent-indigo-soft);
+  color: var(--accent-indigo);
+}
+.badge-blue {
+  background: var(--accent-blue-soft);
+  color: var(--accent-blue);
+}
+.badge-violet {
+  background: var(--accent-violet-soft);
+  color: var(--accent-violet);
+}
+.badge-rose {
+  background: var(--accent-rose-soft);
+  color: var(--accent-rose);
+}
+.badge-orange {
+  background: var(--accent-orange-soft);
+  color: var(--accent-orange);
+}
+.badge-teal {
+  background: var(--accent-teal-soft);
+  color: var(--accent-teal);
+}
+
+/* Soft blurred gradient glow used behind hero sections */
+.hero-glow {
+  position: absolute;
+  inset: -15% -10% auto -10%;
+  height: 620px;
+  background: radial-gradient(
+      38% 55% at 18% 25%,
+      color-mix(in srgb, var(--accent-violet) 30%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      32% 48% at 82% 15%,
+      color-mix(in srgb, var(--primary) 26%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      30% 42% at 55% 70%,
+      color-mix(in srgb, var(--accent-rose) 18%, transparent),
+      transparent 70%
+    );
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gradient-cta {
+  background: linear-gradient(
+    115deg,
+    var(--primary) 0%,
+    var(--accent-violet) 55%,
+    var(--accent-rose) 100%
+  );
 }
